@@ -49,12 +49,13 @@ async def get_profile(request: Request):
     validation_result: SessionValidationResult = (
         sessions.get_and_validate_short_session_value(short_session=sessionToken)
     )
-    if validation_result.authenticated:
 
+    if validation_result.authenticated:
         emailList: List[Identifier] = identifiers.list_all_emails_by_user_id(
             user_id=validation_result.user_id
             or ""  # at this point user_id should be non empty string since user was authenticated
         )
+        print(validation_result)
 
         context = {
             "request": request,
